@@ -1,11 +1,12 @@
 import nodemailer from 'nodemailer'
 const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false, 
+    service: "gmail",
     auth: {
-     user: "8fbbbe002@smtp-brevo.com",
-     pass: "xsmtpsib-6ad4ec487c30e2ea29eaecdf15f996d6ee1f1c841dac97319fd5deed30afc72d-TzZUrnqf854aLHvO",
+      type: "OAuth2",
+      user: "duybao11123@gmail.com",
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
     },
   });
   const sendEmail = async ({to,subject,body}) =>{
