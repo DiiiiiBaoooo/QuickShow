@@ -78,9 +78,9 @@ const checkSeatsAvailability = async(showId,selectedSeats) =>{
 
             // run inngest schedule func to check payment status
             await inngest.send({
-                name: "app.checkpayment",
+                name: "app/checkpayment",
                 data:{
-                    bookingId:booking._id.toString(),
+                    bookingId:booking._id.toString()
                 }
             })
             res.json({success:true,url:session.url})
