@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { MenuIcon, SearchIcon, Ticket, TicketPlus, User, XIcon } from 'lucide-react';
 import { SignInButton, UserButton, useClerk, useUser } from '@clerk/clerk-react';
+import { useAppContext } from '../context/AppContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoaded } = useUser();
   const { openSignIn } = useClerk();
+  const {favoriteMovies} =useAppContext()
     const navigate = useNavigate();
   if (!isLoaded) {
     return null; // Hoặc hiển thị loading
@@ -52,11 +54,11 @@ const Navbar = () => {
              transition-all duration-200" to="/">
           Releases
         </Link>
-        <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }}  className="px-4 py-2 border border-transparent rounded-md 
+       {favoriteMovies.length >0 && <Link onClick={() => { scrollTo(0, 0); setIsOpen(false); }}  className="px-4 py-2 border border-transparent rounded-md 
              hover:border-red-500 hover:text-red-500 
              transition-all duration-200" to="/favorite">
           Favorites
-        </Link>
+        </Link>}
       </div>
       <div className="flex items-center gap-8">
         <SearchIcon className="max-md:hidden w-6 h-6 cursor-pointer" />

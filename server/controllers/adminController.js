@@ -3,9 +3,15 @@
 import Booking from "../models/Booking.js"
 import Show from "../models/Show.js"
 import User from "../models/User.js"
+import { clerkClient } from "@clerk/express";
 
 export const isAdmin = async (req,res) =>{
-    res.json({success:true,isAdmin:true})
+  
+    const {userId} = req.auth();
+            const user = await clerkClient.users.getUser(userId)
+            if(user.privateMetadata.role==='admin'){
+                return res.json({succes:true,isAdmin:true})
+            }
 }
 export const getDashboardData = async (req,res) =>{
     try {
@@ -17,7 +23,7 @@ export const getDashboardData = async (req,res) =>{
             totalBookings:bookings.length,
             totalRevenue:bookings.reduce((acc,booking)=>acc+ booking.amount,0),
             activeShows,
-            tototalUser
+            totalUser
         }
         res.json({success:true,dashboardData})
     } catch (error) {
