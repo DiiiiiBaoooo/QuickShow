@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
   await import('dotenv/config');
 }
 
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
     port: 587,
     secure: false, 
