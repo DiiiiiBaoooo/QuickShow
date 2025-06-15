@@ -2,6 +2,7 @@ import { Inngest } from "inngest";
 import User from "../models/User.js";
 import Booking from "../models/Booking.js";
 import Show from "../models/Show.js";
+import sendEmail from "../configs/nodeMailer.js";
 
 export const inngest = new Inngest({ id: "movie-ticket-booking" });
 
@@ -80,11 +81,40 @@ const releaseSeatsAndDeleteBooking = inngest.createFunction(
             })
     }
 )
+
+//ingest func to send email when user book a show
+
+const  sendBookingConfirmationEmail = inngest.createFunction(
+    {id:"send-booking-confirmation-email"},
+    {event:"app/show.booked"},
+    async({event,step}) =>{
+const {bookingId} = event.data;
+const booking = await Booking.findById(bookingId).populate({
+    path:'show',
+    populate:{path:"movie",model:"Movie"}
+}).populate('user');
+
+await sendEmail({
+    to:booking.user.email,
+    subject: `Payment Confirmaion: "${booking.show.movie.title}" booked`,
+    body: ` <div style="font-family:Arial, sans-serif; line-height:1.5;">
+    <h2>Hi ${booking.user.name},</h2>
+    <p>Your booking for <strong style="color: #84565;"${booking.show.movie.title}"</strong> is confirmed.</>
+    <p>
+        <strong>Date:</strong> ${new Date(booking.show.showDateTime).toLocaleDateString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'})}
+        </p>
+        <p> Enjoy the show! <3 </p>
+        <p> thanks for booking with us <br> - duy bao </p>
+        </div>`
+})
+    }
+)
 //create emtyp array
 export const functions = [
     syncUserCreation,
     syncUserDeletion,
     syncUserUpdation,
-    releaseSeatsAndDeleteBooking
+    releaseSeatsAndDeleteBooking,
+    sendBookingConfirmationEmail
     
 ];
