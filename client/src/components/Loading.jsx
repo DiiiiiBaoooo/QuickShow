@@ -3,39 +3,35 @@ import React from "react";
 const Loading = () => {
   return (
     <div className="flex justify-center items-center h-[80vh]">
-      <div className="fancy-loader" />
+      <div className="wave-loader" />
       <style>{`
-        .fancy-loader {
-          --s: 25px;
-          --g: 5px;
-
-          width: calc(2*(1.353*var(--s) + var(--g)));
+        .wave-loader {
+          --r1: 154%;
+          --r2: 68.5%;
+          width: 60px;
           aspect-ratio: 1;
+          border-radius: 50%;
           background:
-            linear-gradient(#ff1818 0 0) left/50% 100% no-repeat,
-            conic-gradient(from -90deg at var(--s) calc(0.353*var(--s)),
-              #fff 135deg,#666 0 270deg,#aaa 0);
-          background-blend-mode: multiply;
-          --_m:
-            linear-gradient(to bottom right,
-              #0000 calc(0.25*var(--s)),#000 0 calc(100% - calc(0.25*var(--s)) - 1.414*var(--g)),#0000 0),
-            conic-gradient(from -90deg at right var(--g) bottom var(--g),#000 90deg,#0000 0);
-          -webkit-mask: var(--_m);
-          mask: var(--_m);
-          background-size: 50% 50%;
-          -webkit-mask-size: 50% 50%;
-          mask-size: 50% 50%;
-          -webkit-mask-composite: source-in;
-          mask-composite: intersect;
-          animation: l9 1.5s infinite;
+            radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%),
+            radial-gradient(var(--r1) var(--r2) at bottom, #269af2 79.5%, #0000 80%),
+            radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%),
+            #ccc;
+          background-size: 50.5% 220%;
+          background-position: -100% 0%, 0% 0%, 100% 0%;
+          background-repeat: no-repeat;
+          animation: wave-loader 2s infinite linear;
         }
 
-        @keyframes l9 {
-          0%,12.5%    {background-position:0% 0%,0 0}
-          12.6%,37.5% {background-position:100% 0%,0 0}
-          37.6%,62.5% {background-position:100% 100%,0 0}
-          62.6%,87.5% {background-position:0% 100%,0 0}
-          87.6%,100%  {background-position:0% 0%,0 0}
+        @keyframes wave-loader {
+          33% {
+            background-position: 0% 33%, 100% 33%, 200% 33%;
+          }
+          66% {
+            background-position: -100% 66%, 0% 66%, 100% 66%;
+          }
+          100% {
+            background-position: 0% 100%, 100% 100%, 200% 100%;
+          }
         }
       `}</style>
     </div>
