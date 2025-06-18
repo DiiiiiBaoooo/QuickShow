@@ -1,39 +1,43 @@
-// components/Loading.jsx
+```jsx
 import React from 'react';
 
 const Loading = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="flex space-x-2">
-        <div className="w-4 h-4 bg-blue-500 rounded-full animate-staircase [animation-delay:-0.4s]"></div>
-        <div className="w-4 h-4 bg-blue-500 rounded-full animate-staircase [animation-delay:-0.2s]"></div>
-        <div className="w-4 h-4 bg-blue-500 rounded-full animate-staircase"></div>
-      </div>
+      <div className="loader"></div>
+      <style jsx>{`
+        .loader {
+          width: 120px;
+          height: 22px;
+          border-radius: 40px;
+          color: #514b82;
+          border: 2px solid;
+          position: relative;
+          overflow: hidden;
+        }
+        .loader::before {
+          content: "";
+          position: absolute;
+          margin: 2px;
+          width: 14px;
+          top: 0;
+          bottom: 0;
+          left: -20px;
+          border-radius: inherit;
+          background: currentColor;
+          box-shadow: -10px 0 12px 3px currentColor;
+          clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%, -30px 50%);
+          animation: l14 1s infinite linear;
+        }
+        @keyframes l14 {
+          100% {
+            left: calc(100% + 20px);
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
-// Định nghĩa keyframes trong file CSS hoặc inline style
-const styles = `
-  .animate-staircase {
-    animation: staircase 1.2s ease-in-out infinite;
-  }
-
-  @keyframes staircase {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
-  }
-`;
-
-// Thêm style vào document (nếu không dùng file CSS riêng)
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = styles;
-  document.head.appendChild(styleSheet);
-}
-
 export default Loading;
+```
