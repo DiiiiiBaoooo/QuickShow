@@ -13,9 +13,12 @@ const Loading = ({size='16'}) => {
       }
   },[])
   return (
-   <div className="flex justify-center items-center h-[80vh]">
-    <div className="animate-spin rounded-full h-1/4 w-1/4 border-2 border-t-primary"></div>
-   </div>
+    <div className="flex space-x-2">
+    <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+    <div className="w-4 h-4 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+    <div className="w-4 h-4 bg-primary rounded-full animate-bounce"></div>
+  </div>
+  
   )
 }
 
