@@ -172,7 +172,7 @@ const bookTickets = async () => {
     );
 
     if (data.success) { // Adjust based on your backend response structure
-     window.location.href= data.success_url;
+     window.location.href= data.url;
     } else {
       toast.error(data.message);
     }
