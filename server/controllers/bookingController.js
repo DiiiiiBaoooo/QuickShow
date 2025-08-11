@@ -73,7 +73,7 @@ const checkSeatsAvailability = async(showId,selectedSeats) =>{
                 expires_at:Math.floor(Date.now()/1000)+30*60, //expires in 30 phut
                
             })
-            booking.paymentLink = session.success_url
+            booking.paymentLink = session.url
             await booking.save()
 
             // run inngest schedule func to check payment status
@@ -83,7 +83,7 @@ const checkSeatsAvailability = async(showId,selectedSeats) =>{
                     bookingId:booking._id.toString()
                 }
             })
-            res.json({success:true,url:session.success_url})
+            res.json({success:true,url:session.url})
         } catch (error) {
             console.log(error.message);
             res.json({success:false,message:error.message})
