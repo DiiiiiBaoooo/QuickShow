@@ -73,7 +73,7 @@ const checkSeatsAvailability = async(showId,selectedSeats) =>{
                 expires_at:Math.floor(Date.now()/1000)+30*60, //expires in 30 phut
                
             })
-            booking.paymentLink = session.url
+            booking.paymentLink = session.success_url
             await booking.save()
 
             // run inngest schedule func to check payment status
